@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moot AI — محلل الرسوم (فريم الدقيقة)</title>
+  <meta name="description" content="تحليل شارت فريم الدقيقة خلال ~10 ثوانٍ باستخدام رؤية حاسوبية + مؤشرات (RSI/EMA/CCI/Pivots/Price Action) لإخراج قرار شراء/بيع/لا تداول مع نسبة ثقة." />
+  <link rel="stylesheet" href="./assets/style.css">
+  <script defer src="./assets/main.js"></script>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="brand">
+      <div class="logo">M</div>
+      <div>
+        <h1>Moot <span class="accent">AI</span></h1>
+        <p class="sub">Prxbility AI • Chart Depth AI</p>
+      </div>
+    </div>
+    <nav>
+      <a href="#how">كيف يعمل؟</a>
+      <a href="#demo">التجربة</a>
+      <a href="#faq">الأسئلة</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>محلل الرسوم <span class="accent">(فريم الدقيقة)</span> يُخرج قرارًا خلال ~10 ثوانٍ</h2>
+        <p>ارفع <b>CSV/JSON/صورة</b> وسيُطبّق الذكاء الاصطناعي + القواعد: <b>Reversal • Price Action • RSI • EMA 5/100 • CCI • Pivots • Scalping</b> مع فلاتر الاتجاه/الدوجي/المومنتم. النتيجة: <b>شراء / بيع / لا تداول</b> + <b>نسبة الثقة</b> + <b>الأسباب</b>.</p>
+        <div class="actions">
+          <button id="sampleBtn">تحميل عينة CSV</button>
+          <label class="upload">رفع ملف
+            <input id="fileInput" type="file" accept=".csv,.json,.txt,.png,.jpg,.jpeg"/>
+          </label>
+        </div>
+        <small>الصور تعمل عبر واجهة الذكاء الاصطناعي على الخادم (OpenAI Vision). بدون مفتاح API سيعمل محرك القواعد المحلي تلقائيًا (لا رسائل فشل).</small>
+      </div>
+      <div class="panel glass">
+        <div class="row">
+          <span class="muted">التحليل الجاري</span>
+          <span id="eta" class="muted">≈ 10s</span>
+        </div>
+        <div class="bar"><div id="bar" class="bar-fill"></div></div>
+        <div id="status" class="muted">ارفع ملفًا للبدء…</div>
+        <div id="resultCard" class="card hidden">
+          <div class="row">
+            <div>
+              <div id="decisionBadge" class="badge">—</div>
+              <div class="muted tiny">ثقة القرار: <span id="confidence">—</span>%</div>
+            </div>
+            <div class="right tiny muted">
+              <div>اتجاه: <span id="trend">—</span></div>
+              <div>RSI: <span id="rsi">—</span></div>
+              <div>CCI: <span id="cci">—</span></div>
+              <div>EMA5/100: <span id="emas">—</span></div>
+            </div>
+          </div>
+          <div class="tiny muted" id="rules"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGIES -->
+    <section id="demo" class="glass">
+      <h3>الاستراتيجيات المُفعّلة</h3>
+      <div class="grid">
+        <label><input class="toggle" type="checkbox" data-key="trend" checked> فلتر الاتجاه (لا إشارات ضد الترند/المومنتم/الدوجي)</label>
+        <label><input class="toggle" type="checkbox" data-key="priceAction" checked> Price Action (ابتلاع)</label>
+        <label><input class="toggle" type="checkbox" data-key="rsi" checked> RSI (14)</label>
+        <label><input class="toggle" type="checkbox" data-key="ema" checked> EMA 5/100</label>
+        <label><input class="toggle" type="checkbox" data-key="cci" checked> CCI (20)</label>
+        <label><input class="toggle" type="checkbox" data-key="scalping" checked> Scalping (قرب EMA100)</label>
+        <label><input class="toggle" type="checkbox" data-key="pivots" checked> Pivot High/Low</label>
+        <label><input class="toggle" type="checkbox" data-key="dojiFilter" checked> منع الدوجي</label>
+        <label><input class="toggle" type="checkbox" data-key="momentum" checked> فلتر المومنتم</label>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how">
+      <div class="grid3">
+        <div class="glass step">
+          <div class="accent tiny">الخطوة 1</div>
+          <h4>ارفع بيانات الدقيقة</h4>
+          <p class="muted tiny">CSV: time,open,high,low,close • أو JSON مصفوفة شموع • أو صورة شارت.</p>
+        </div>
+        <div class="glass step">
+          <div class="accent tiny">الخطوة 2</div>
+          <h4>نحسب المؤشرات</h4>
+          <p class="muted tiny">RSI, EMA5/100, CCI, Pivots + Price Action + فلاتر الدوجي والمومنتم والاتجاه.</p>
+        </div>
+        <div class="glass step">
+          <div class="accent tiny">الخطوة 3</div>
+          <h4>قرار واضح</h4>
+          <p class="muted tiny">شراء / بيع / لا تداول + نسبة ثقة مبنية على توافق الشروط (بدون رسائل فشل).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="glass">
+      <h3>تنبيه هام</h3>
+      <p class="muted tiny">هذه الأداة تعليمية/اختبارية. لا يوجد نموذج يضمن عدم الخسارة أو دقة 99% باستمرار. يتم عرض «نسبة ثقة» فقط.</p>
+    </section>
+  </main>
+
+  <footer class="footer">© <span id="year"></span> Moot AI — دقيقة واحدة قرار</footer>
+</body>
+</html>
